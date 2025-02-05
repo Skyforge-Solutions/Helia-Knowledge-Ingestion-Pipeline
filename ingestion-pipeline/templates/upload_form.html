@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helia Resource Uploader</title>
+    <link rel="stylesheet" href="/static/css/upload_form.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Helia Resource Uploader</h1>
+        <div id="message" class="message"></div>
+        <form id="uploadForm">
+            <div class="form-group">
+                <label for="bot_name">Choose Bot</label>
+                <select id="bot_name" name="bot_name" required>
+                    <option value="">Select a bot...</option>
+                    <option value="Helia Sun Shield">Helia Sun Shield</option>
+                    <option value="Helia Growth Ray">Helia Growth Ray</option>
+                    <option value="Helia Sunbeam">Helia Sunbeam</option>
+                    <option value="Helia Inner Dawn">Helia Inner Dawn</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pdf_links">PDF Links (comma separated)</label>
+                <textarea id="pdf_links" name="pdf_links" placeholder="https://example.com/file1.pdf, https://example.com/file2.pdf"></textarea>
+                <span id="pdf_links_error" class="error-text"></span>
+            </div>
+            <div class="form-group">
+                <label for="blog_links">Blog Links (comma separated)</label>
+                <textarea id="blog_links" name="blog_links" placeholder="https://example.com/blog1, https://example.com/blog2"></textarea>
+                <span id="blog_links_error" class="error-text"></span>
+            </div>
+            <button type="submit" id="submitBtn">
+                Upload
+                <span id="spinner" class="spinner">⌛</span>
+            </button>
+        </form>
+    </div>
+    <script src="/static/js/upload_form.js"></script>
+</body>
+</html>
