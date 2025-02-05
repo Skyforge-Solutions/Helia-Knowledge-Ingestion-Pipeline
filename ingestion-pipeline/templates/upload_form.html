@@ -10,7 +10,7 @@
     <div class="container">
         <h1>Helia Resource Uploader</h1>
         <div id="message" class="message"></div>
-        <form id="uploadForm">
+        <form id="upload_form" method="POST" action="/upload">
             <div class="form-group">
                 <label for="bot_name">Choose Bot</label>
                 <select id="bot_name" name="bot_name" required>
@@ -31,7 +31,7 @@
                 <textarea id="blog_links" name="blog_links" placeholder="https://example.com/blog1, https://example.com/blog2"></textarea>
                 <span id="blog_links_error" class="error-text"></span>
             </div>
-            <button type="submit" id="submitBtn">
+            <button type="submit" id="submit_btn">
                 Upload
                 <span id="spinner" class="spinner">⌛</span>
             </button>
