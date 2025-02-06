@@ -3,13 +3,6 @@ A **scalable AI knowledge ingestion pipeline** that extracts, embeds, and integr
 
 ---
 
-## 🔧 **Technical Overview**
-HeliaMind-Pipeline is a **FastAPI-based ingestion pipeline** that processes **PDF and blog links**, extracts meaningful content, generates embeddings, and stores them in **ChromaDB** for retrieval-augmented generation (RAG).  
-
-The system dynamically retrieves **relevant data from ChromaDB** before passing it as **context to Google Gemini**, ensuring the chatbot can **generate accurate responses using both pre-trained knowledge and custom sources**.
-
----
-
 ## 🏗 **Pipeline Architecture**
 ### **1️⃣ Data Ingestion**
 - Users submit **PDFs or Blog URLs** via a FastAPI form.
@@ -41,9 +34,6 @@ The system dynamically retrieves **relevant data from ChromaDB** before passing 
 | **ChromaDB** | Running on **GCP VM** (Containerized) |
 | **ChromaDB Dashboard** | [Vector DB Collections](http://35.232.242.250:8501/) |
 | **Celery Worker** | Hosted on the **same GCP instance as FastAPI** |
-| **Next.js Chatbot** | Hosted on **Vercel (Frontend)** |
-| **Google Gemini API** | Used for chatbot responses |
-
 ---
 
 ## 🛠 **Tech Stack & How Each is Used**
@@ -54,7 +44,6 @@ The system dynamically retrieves **relevant data from ChromaDB** before passing 
 | **PostgreSQL** | Database for tracking link processing status |
 | **ChromaDB** | Vector search database storing extracted knowledge |
 | **Google Gemini API** | AI-powered chatbot responses |
-| **Next.js** | Frontend chatbot UI |
 | **PyMuPDF (fitz)** | PDF text extraction |
 | **Trafilatura** | Blog/web content extraction |
 | **OpenAI Embeddings** | Converts text into vector embeddings for search |
