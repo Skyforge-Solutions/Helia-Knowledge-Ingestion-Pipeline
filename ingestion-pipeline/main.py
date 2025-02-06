@@ -12,6 +12,7 @@ from urllib.parse import urlparse
 
 from db_setup import SessionLocal, engine, Base
 from models import ResourceLink
+from tasks import process_resource
 
 Base.metadata.create_all(bind=engine)
 
@@ -69,7 +70,7 @@ async def handle_form(
             }
         )
 
-    # Check for duplicates between PDF and blog lists
+    # duplicates between PDF and blog lists
     duplicates = set(pdf_list) & set(blog_list)
     if duplicates:
         return JSONResponse(
@@ -81,10 +82,10 @@ async def handle_form(
         )
 
     try:
-        new_records_count = 0
+        # new_records_count = 0
+        new_records = []
         skipped_urls = []
 
-        # First, check all URLs for existing records
         all_urls = pdf_list + blog_list
         existing_links = db.query(ResourceLink).filter(
             ResourceLink.link.in_(all_urls),
@@ -107,7 +108,8 @@ async def handle_form(
                 is_embedded=False
             )
             db.add(link)
-            new_records_count += 1
+            # new_records_count += 1
+            new_records.append(link)
 
         # Process blog links
         for url in blog_list:
@@ -123,7 +125,8 @@ async def handle_form(
                 is_embedded=False
             )
             db.add(link)
-            new_records_count += 1
+            # new_records_count += 1
+            new_records.append(link)
 
         try:
             db.commit()
@@ -139,7 +142,13 @@ async def handle_form(
                 )
             raise e
 
-        # Build response message
+        new_records_count = len(new_records)
+        for record in new_records:
+            process_resource.delay(record.link, record.bot_name, record.file_type)
+
+
+
+
         if new_records_count > 0:
             message = "Upload successful"
             if skipped_urls:
